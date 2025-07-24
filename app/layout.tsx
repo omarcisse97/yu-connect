@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
+import { AvatarAssetsProvider } from "./providers/avatarAssets";
+import { DummyProvider } from "./providers/dummy";
+import { AuthProvider } from "./providers/auth";
+import { AvatarProvider } from "./providers/avatar";
+import { getAssetsXML } from "./data/figuredata";
 import { Geist, Geist_Mono, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Navbar from "./ui/Navbar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -54,17 +50,31 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialAvatarData = await getAssetsXML();
   return (
     <html lang="en">
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        {children}
+        <AvatarAssetsProvider assetsXML={initialAvatarData}>
+          <DummyProvider>
+            <AuthProvider>
+              <AvatarProvider>
+                <div className="min-h-screen bg-gray-50">
+                  <Navbar />
+                  <main className="pt-16">
+                    {children}
+                  </main>
+                </div>
+              </AvatarProvider>
+            </AuthProvider>
+          </DummyProvider>
+        </AvatarAssetsProvider>
       </body>
     </html>
   );
