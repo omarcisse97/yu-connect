@@ -168,7 +168,7 @@ export const Login = (props: { navigate: (authType: string) => void }) => {
                 {/* Sign Up Link */}
                 <div className="text-center">
                     <p className="text-sm text-gray-600">
-                        Don't have an account?{' '}
+                        {"Don't have an account?"}{' '}
                         <button
                             onClick={() => { props.navigate('REGISTER') }}
                             className="font-medium text-blue-600 hover:text-blue-500"
