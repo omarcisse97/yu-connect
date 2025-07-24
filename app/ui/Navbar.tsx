@@ -25,7 +25,7 @@ const Navbar = () => {
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showMobileSearch, setShowMobileSearch] = useState(false);
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const { avatar } = useAvatar();
     const routes = pathname.split('/');
     const currentParent = routes?.[1] === undefined ? routes?.[0] : routes?.[1];
@@ -39,6 +39,8 @@ const Navbar = () => {
     if (!avatar || !user) {
         return <NavbarSkeleton />
     }
+
+    
 
     return (
         <>
@@ -136,7 +138,7 @@ const Navbar = () => {
                                             <div className="border-t border-gray-100 py-2">
                                                 <button
                                                     onClick={() => {
-                                                        // onLogout?.();
+                                                        logout();
                                                         setShowUserMenu(false);
                                                     }}
                                                     className="flex items-center w-full px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors"
@@ -304,7 +306,7 @@ const Navbar = () => {
                                 </Link>
                                 <button
                                     onClick={() => {
-                                        // onLogout?.();
+                                        logout();
                                         setShowMobileMenu(false);
                                     }}
                                     className="block w-full text-left p-4 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
