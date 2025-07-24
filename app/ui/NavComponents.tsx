@@ -272,7 +272,7 @@ export const SearchDropdown: React.FC<UserSearchDropdownProps> = ({
                                         onClick={() => setIsOpen(false)}
                                     >
                                         <MagnifyingGlassIcon className="h-4 w-4" />
-                                        <span>View all results for "{searchQuery.trim()}"</span>
+                                       <span>{`View all results for "${searchQuery.trim()}"`}</span>
                                     </Link>
                                 </div>
                             )}
