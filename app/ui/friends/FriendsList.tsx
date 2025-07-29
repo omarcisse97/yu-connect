@@ -1,15 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { Friend, Friends, UserData, UsersData } from "@/app/lib/definitions";
-import { Avatar } from "@/app/models/AvatarSchema";
-import UserAvatar from "../UserAvatar";
+import { Friends } from "@/app/lib/definitions";
 import {
     MagnifyingGlassIcon,
     UserPlusIcon,
-    UserMinusIcon,
-    CheckIcon,
-    XMarkIcon
 } from "@heroicons/react/24/outline";
 import { useDummy } from '@/app/providers/dummy';
 import { useAuth } from '@/app/providers/auth';
@@ -19,13 +14,13 @@ import { FriendCard } from './cards';
 
 const FriendsList = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [activeTab, setActiveTab] = useState<'all' | 'friends' | 'requests' | 'suggestions'>('all');
+    const [activeTab, setActiveTab] = useState<string>('all');
     const [friends, setFriends] = useState<Friends | null>(null);
     const { getUserByID } = useDummy();
     const { user } = useAuth();
 
     useEffect(() => {
-        if (user && user?.friends) {
+        if (user && user?.friends && getUserByID) {
             setFriends(
                 searchTerm === '' ?
                     [...user.friends]
@@ -41,7 +36,7 @@ const FriendsList = () => {
                     }) as Friends
             )
         }
-    }, [user, searchTerm]);
+    }, [user, searchTerm, getUserByID]);
 
     const getFriendStatus = (status: string | null): 'friend' | 'request' | 'none' => {
         switch (status) {
@@ -59,8 +54,8 @@ const FriendsList = () => {
                     return friends.filter(friend => getFriendStatus(friend.status) === 'friend');
                 case 'requests':
                     return friends.filter(friend => getFriendStatus(friend.status) === 'request');
-                case 'suggestions':
-                    return friends.filter(friend => getFriendStatus(friend.status) === 'none');
+                // case 'suggestions':
+                //     return friends.filter(friend => getFriendStatus(friend.status) === 'none');
                 default:
                     return friends;
             }
@@ -97,7 +92,7 @@ const FriendsList = () => {
                     ].map(tab => (
                         <button
                             key={tab.key}
-                            onClick={() => setActiveTab(tab.key as any)}
+                            onClick={() => setActiveTab(tab.key)}
                             className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${activeTab === tab.key
                                 ? 'bg-white text-blue-600 shadow-sm'
                                 : 'text-gray-600 hover:text-gray-900'
