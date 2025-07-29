@@ -175,7 +175,7 @@ export const SearchDropdown: React.FC<UserSearchDropdownProps> = ({
         setIsOpen(false);
         searchRef.current?.focus();
     };
-
+    
     return (
         <div className={`relative w-full ${className}`}>
             {/* Search Input */}

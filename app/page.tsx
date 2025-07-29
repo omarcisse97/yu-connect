@@ -6,6 +6,7 @@ import { useAvatar } from "./providers/avatar";
 import { Login, Register } from "./ui/Auth";
 import Feed from "./ui/Feed";
 import { CreatePost } from "./ui/feed/createPost";
+import PostList from "./ui/feed/PostList";
 
 export default function Home() {
   const { user, loading } = useAuth();
@@ -31,7 +32,6 @@ export default function Home() {
   }, [user, loading]);
 
   
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -45,11 +45,14 @@ export default function Home() {
     return authContent;
   }
 
-  if (user) {
+  if (user && avatar) {
     return (
       <Feed>
-        {/* <CreatePost /> */}
-        <></>
+        <CreatePost
+        user={user.user}
+        avatar={avatar}
+         />
+        <PostList />
       </Feed>
     );
   }

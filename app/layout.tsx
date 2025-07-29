@@ -3,6 +3,7 @@ import { AvatarAssetsProvider } from "./providers/avatarAssets";
 import { DummyProvider } from "./providers/dummy";
 import { AuthProvider } from "./providers/auth";
 import { AvatarProvider } from "./providers/avatar";
+import { SocialsProvider } from "./providers/socials";
 import { getAssetsXML } from "./data/figuredata";
 import { Geist, Geist_Mono, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
@@ -65,12 +66,14 @@ export default async function RootLayout({
           <DummyProvider>
             <AuthProvider>
               <AvatarProvider>
+                <SocialsProvider>
                 <div className="min-h-screen bg-gray-50">
                   <Navbar />
                   <main className="pt-16">
                     {children}
                   </main>
                 </div>
+                </SocialsProvider>
               </AvatarProvider>
             </AuthProvider>
           </DummyProvider>

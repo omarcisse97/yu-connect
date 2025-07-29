@@ -204,4 +204,4 @@ export const generateDummyUsersWithCriteria = (criteria: {
 
     return users;
 };
-export const dummyUsers: Users = generateDummyUsers(1000);
+export const dummyUsers: Users = generateDummyUsers(50);

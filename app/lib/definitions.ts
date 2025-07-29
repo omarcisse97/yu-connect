@@ -34,12 +34,7 @@ export type User = {
 }
 export type Users = User[];
 
-export type UserData = {
-    user: User | null,
-    avatarMetadata: AvatarMetadata | null,
-    avatar: Avatar | null
-}
-export type UsersData = UserData[];
+
 
 export type Friend = {
     id: string,
@@ -77,7 +72,7 @@ export type Post = {
     location: string | null,
     tags: string[] | null,
     mentions: string[] | null,
-    visibility: string | null,
+    visibility: 'private' | 'public' | 'friends',
     comments_enabled: boolean | null,
     like_count: number | null,
     comments_count: number | null,
@@ -96,3 +91,11 @@ export type Like = {
     created_at: string | null
 } 
 export type Likes = Like[];
+
+export type UserData = {
+    user: User | null,
+    avatarMetadata: AvatarMetadata | null,
+    avatar: Avatar | null,
+    friends: Friends | null
+}
+export type UsersData = UserData[];
